@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Scoreboard Application</title>
+	</head>
+	<body>
+		<div>
+			<h1><span>0</span> to <span>0</span></h1>
+			<p>First to <span>5</span> wins.</p>
+			<input type="number" min="0" step="1" value="5">
+			<button onclick="addScore(score1_arr);">Player 1</button>
+			<button onclick="addScore(score2_arr);">Player 2</button>
+			<button id="reset">Reset</button>
+		</div>
+
+		<script>
+
+			//SELECT ELEMENTS
+			var span_score1 = document.getElementsByTagName("span")[0];
+			var span_score2 = document.getElementsByTagName("span")[1];
+			var span_rounds = document.getElementsByTagName("span")[2];
+			var input_rounds = document.getElementsByTagName("input")[0];
+			var reset = document.querySelector("#reset");
+
+			//LISTEN AND SET MAX ROUNDS
+			input_rounds.addEventListener("click", function()
+			{
+				span_rounds.textContent = input_rounds.value;
+			});
+
+			//SET ELEMENT ARRAY
+			//REDUCES REDUNDANCY WHEN USING addScore();
+			var score1_arr = [span_score1, parseInt(span_score1.innerHTML)];
+			var score2_arr = [span_score2, parseInt(span_score2.innerHTML)];
+
+			function addScore(x)
+			{
+				if(x[1] < input_rounds.value)
+				{
+					x[1]++;
+					x[0].textContent = x[1];
+
+					if(x[1] == input_rounds.value)
+					{
+						x[0].style.color = "green";
+					}
+				}
+			}
+
+			//RESET SCOREBOARD
+			reset.addEventListener("click", function()
+			{
+				score1_arr[1] = 0;
+				score2_arr[1] = 0;
+				score1_arr[0].textContent = 0;
+				score2_arr[0].textContent = 0;
+				score1_arr[0].style.color = "black";
+				score2_arr[0].style.color = "black";
+			});
+
+		</script>
+	</body>
+</html>
